@@ -24,3 +24,71 @@ elm('cp').addEventListener('click',()=>{const t=elm('out').textContent;if(t)navi
 elm('whatsappShare').addEventListener('click',()=>{const t=elm('out').textContent;window.open('https://wa.me/?text='+encodeURIComponent(t))})
 elm('copyShare').addEventListener('click',()=>{const t=elm('out').textContent;if(t)navigator.clipboard.writeText(t).then(()=>alert('Copied'));shareModal.classList.remove('show')})
 elm('closeShare').addEventListener('click',()=>{shareModal.classList.remove('show')})
+// anti-inspect.js
+// Paste into script.js or inside <script> at end of body
+
+(function() {
+  'use strict';
+
+  // Disable right-click context menu
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+  }, { passive: false });
+
+  // Disable specific mouse buttons (optional) - middle button / right button
+  document.addEventListener('mousedown', function(e) {
+    // 1 = middle, 2 = right
+    if (e.button === 1 || e.button === 2) {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }
+  }, { passive: false });
+
+  // Prevent selection/copy (optional, comment out if not desired)
+  // document.addEventListener('selectstart', e => e.preventDefault());
+  // document.addEventListener('copy', e => e.preventDefault());
+
+  // Keydown handler to block common inspection/view-source shortcuts
+  document.addEventListener('keydown', function(e) {
+    // Normalize key and modifiers
+    const key = (e.key || '').toLowerCase();
+    const ctrl = e.ctrlKey || false;
+    const shift = e.shiftKey || false;
+    const alt = e.altKey || false;
+    const meta = e.metaKey || false; // Command key on Mac
+
+    // Common combos to block:
+    // F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, Ctrl+Shift+K, Ctrl+Shift+P
+    // Ctrl+U (view-source), Ctrl+S (save), Ctrl+Shift+S, Ctrl+P (print)
+    // Cmd+Option+I / Cmd+Option+U on Mac
+    // Ctrl+Shift+I etc with different casing handled via .toLowerCase()
+
+    const blocked = (
+      e.key === 'F12' ||
+      (ctrl && shift && (key === 'i' || key === 'j' || key === 'c' || key === 'k' || key === 'p')) ||
+      (ctrl && (key === 'u' || key === 's' || key === 'p')) ||
+      (meta && alt && (key === 'i' || key === 'u')) ||
+      (meta && shift && (key === 'i' || key === 'c')) // Mac variations
+    );
+
+    if (blocked) {
+      try { e.preventDefault(); } catch (err) {}
+      try { e.stopImmediatePropagation(); } catch (err) {}
+      try { e.stopPropagation(); } catch (err) {}
+      return false;
+    }
+
+    // Also block opening devtools via keyboard-like sequences
+    // (some browsers use ctrl+shift+I, others have different combos)
+  }, true);
+
+  // Optional: disable opening view-source: urls (address bar), hard to block reliably
+  // Optional: detect devtools open via timing or window size changes (not reliable).
+
+  // Friendly message in console for curious devs
+  try {
+    console.log('%cMopi Lock-Down: inspection shortcuts are disabled on this page.', 'color:#4b6cb7;font-weight:700');
+  } catch (e) {}
+
+})();
