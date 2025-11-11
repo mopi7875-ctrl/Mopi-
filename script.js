@@ -1,11 +1,35 @@
-document.addEventListener('contextmenu', function(e) {
-  if (e.shiftKey) return; // allow if SHIFT is pressed
-  e.preventDefault();
+// disable-protect.js
+document.addEventListener('contextmenu', function (e) {
+  e.preventDefault(); // Disable right-click
 }, { passive: false });
 
+// Disable common inspect/view-source shortcut keys
+document.addEventListener('keydown', function (e) {
+  // Disable F12
+  if (e.key === "F12") {
+    e.preventDefault();
+  }
 
+  // Disable Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C
+  if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) {
+    e.preventDefault();
+  }
 
+  // Disable Ctrl+U (view source)
+  if (e.ctrlKey && e.key === 'U') {
+    e.preventDefault();
+  }
 
+  // Disable Ctrl+S (save page)
+  if (e.ctrlKey && e.key === 'S') {
+    e.preventDefault();
+  }
+
+  // Disable Ctrl+Shift+K or Ctrl+Shift+E (some browsers)
+  if (e.ctrlKey && e.shiftKey && (e.key === 'K' || e.key === 'E')) {
+    e.preventDefault();
+  }
+}, false);
 
 const A=textToBits,B=bitsToText;
 async function h(s){const e=new TextEncoder();const r=await crypto.subtle.digest('SHA-256',e.encode(s));return new Uint8Array(r)}
