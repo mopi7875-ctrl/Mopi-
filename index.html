@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Secret Couple Message</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="app">
+  <div class="header-logo">Mopi Lock-Down</div>
+
+  <div class="section" id="encryptSection">
+    <strong>Encrypt Message</strong>
+    <textarea id="m" class="input" rows="4" placeholder="Type message (English or Roman Urdu)"></textarea>
+    <input id="p" class="input" type="password" placeholder="Suggest a * password *">
+    <div class="row">
+      <button id="e" class="btn">Encrypt</button>
+      <button id="c" class="btn alt">Clear</button>
+    </div>
+    <div id="out" class="box" aria-label="encrypted"></div>
+    <div class="row"><button id="cp" class="btn">Copy Code</button></div>
+  </div>
+
+  <div class="section" id="decryptSection">
+    <strong>Decrypt Message</strong>
+    <textarea id="in" class="input" rows="4" placeholder="Paste code"></textarea>
+    <input id="p2" class="input" type="password" placeholder="Enter the message * password * ">
+    <div class="row">
+      <button id="d" class="btn">Decrypt</button>
+      <button id="c2" class="btn alt">Clear</button>
+    </div>
+    <div id="msg" class="box"></div>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-content" id="modalContent">
+    <h3 style="margin-bottom:8px;">Choose an Option</h3>
+    <p style="font-size:14px;color:#555;margin-bottom:16px;">
+      Encrypt your message to create a secret numeric code or decrypt a received code.
+    </p>
+    <button id="chooseEncrypt" class="btn" style="margin-bottom:10px;">Encrypt 🔒</button>
+    <button id="chooseDecrypt" class="btn alt">Decrypt 🔑</button>
+  </div>
+</div>
+
+<div class="modal" id="shareModal">
+  <div class="modal-content">
+    <span class="close-modal" id="closeShare">×</span>
+    <h3>Share this code to your friend </h3>
+    <div class="share-options">
+      <button class="share-btn" id="whatsappShare">WhatsApp</button>
+      <button class="share-btn" id="copyShare">Copy</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
