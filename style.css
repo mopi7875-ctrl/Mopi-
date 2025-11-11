@@ -1,0 +1,50 @@
+:root{
+  --primary:#4b6cb7;
+  --secondary:#182848;
+  --accent:#ff6f61;
+  --hover:#ff5a4d;
+  --bg-gradient:linear-gradient(135deg,var(--primary),var(--secondary));
+}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
+
+.header-logo {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 32px;
+  text-align: center;
+  background: linear-gradient(135deg, #4b6cb7, #182848, #ff6f61);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3), 2px 2px 6px rgba(0,0,0,0.2);
+  letter-spacing: 1px;
+  transition: transform 0.3s, text-shadow 0.3s;
+  cursor: default;
+}
+.header-logo:hover {
+  transform: scale(1.05) rotateX(3deg);
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.35), 3px 3px 8px rgba(0,0,0,0.25);
+}
+*{box-sizing:border-box;transition:all 0.3s ease}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:12px;background:var(--bg-gradient);font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Arial;color:#fff}
+.app{width:100%;max-width:520px;background:#f5f5f5;color:#333;border-radius:14px;padding:20px;box-shadow:0 12px 25px rgba(0,0,0,0.2);display:flex;flex-direction:column;gap:20px;position:relative;opacity:0;transform:translateY(20px);animation:fadeIn 0.6s forwards}
+@keyframes fadeIn{to{opacity:1;transform:translateY(0)}}
+.header{font-weight:700;font-size:22px;color:var(--secondary);text-align:center;margin-bottom:12px}
+.section{border:1px solid rgba(0,0,0,0.1);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;background:#fff;display:none;animation:slideFade 0.5s forwards;box-shadow:0 4px 15px rgba(0,0,0,0.08)}
+@keyframes slideFade{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.input,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid rgba(0,0,0,0.15);font-size:14px;resize:none;box-sizing:border-box}
+.row{display:flex;gap:10px}
+.btn{flex:1;padding:12px;border-radius:12px;border:0;background:var(--accent);color:#fff;font-weight:700;cursor:pointer;transition:background 0.3s, transform 0.2s}
+.btn:hover{background:var(--hover);transform:translateY(-2px)}
+.btn.alt{background:transparent;color:var(--accent);border:2px solid rgba(255,111,97,0.3)}
+.btn.alt:hover{background:var(--accent);color:#fff}
+.box{min-height:100px;padding:12px;border-radius:12px;border:1px dashed rgba(0,0,0,0.08);background:#fdfdfd;overflow:auto;white-space:pre-wrap;word-break:break-all;transition:all 0.3s, transform 0.2s}
+.box:hover{transform:scale(1.02)}
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:10;opacity:0;pointer-events:none;transition:opacity 0.3s}
+.modal.show{opacity:1;pointer-events:auto}
+.modal-content{background:#fff;padding:24px;border-radius:14px;display:flex;flex-direction:column;gap:16px;width:90%;max-width:340px;text-align:center;position:relative;box-shadow:0 8px 20px rgba(0,0,0,0.15)}
+.close-modal{position:absolute;top:10px;right:10px;font-size:20px;cursor:pointer;color:#a33;transition:color 0.3s}
+.close-modal:hover{color:var(--accent)}
+.share-options{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.share-btn{flex:1;padding:12px;border-radius:12px;border:0;background:#25d366;color:#fff;font-weight:700;cursor:pointer;transition:background 0.3s, transform 0.2s}
+.share-btn:hover{background:#1ebe57;transform:translateY(-2px)}
+@media(max-width:420px){.row{flex-direction:column}.btn{flex:unset}}
