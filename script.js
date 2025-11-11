@@ -1,7 +1,8 @@
-// disable-right-click.js
 document.addEventListener('contextmenu', function(e) {
+  if (e.shiftKey) return; // allow if SHIFT is pressed
   e.preventDefault();
 }, { passive: false });
+
 
 
 
