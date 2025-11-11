@@ -1,35 +1,57 @@
-// disable-protect.js
-document.addEventListener('contextmenu', function (e) {
-  e.preventDefault(); // Disable right-click
-}, { passive: false });
+// protect-site.js
 
-// Disable common inspect/view-source shortcut keys
-document.addEventListener('keydown', function (e) {
-  // Disable F12
+// ✅ Permanently disable right-click — even with Shift or long press
+window.oncontextmenu = function (e) {
+  e.preventDefault();
+  return false;
+};
+
+// ✅ Block all inspect and view-source shortcuts
+document.onkeydown = function (e) {
+  // F12
   if (e.key === "F12") {
     e.preventDefault();
+    return false;
   }
 
-  // Disable Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C
-  if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) {
+  // Ctrl+Shift+I / Ctrl+Shift+J / Ctrl+Shift+C
+  if (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) {
     e.preventDefault();
+    return false;
   }
 
-  // Disable Ctrl+U (view source)
-  if (e.ctrlKey && e.key === 'U') {
+  // Ctrl+U (view source)
+  if (e.ctrlKey && e.key.toUpperCase() === 'U') {
     e.preventDefault();
+    return false;
   }
 
-  // Disable Ctrl+S (save page)
-  if (e.ctrlKey && e.key === 'S') {
+  // Ctrl+S (save page)
+  if (e.ctrlKey && e.key.toUpperCase() === 'S') {
     e.preventDefault();
+    return false;
   }
 
-  // Disable Ctrl+Shift+K or Ctrl+Shift+E (some browsers)
-  if (e.ctrlKey && e.shiftKey && (e.key === 'K' || e.key === 'E')) {
+  // Ctrl+Shift+K / Ctrl+Shift+E (Firefox or Edge)
+  if (e.ctrlKey && e.shiftKey && ['K', 'E'].includes(e.key.toUpperCase())) {
     e.preventDefault();
+    return false;
   }
-}, false);
+
+  // Prevent Shift + right click (some browsers)
+  if (e.shiftKey && e.button === 2) {
+    e.preventDefault();
+    return false;
+  }
+};
+
+// ✅ Extra safety: re-disable context menu every few seconds
+setInterval(() => {
+  document.oncontextmenu = function (e) {
+    e.preventDefault();
+    return false;
+  };
+}, 1000);
 
 const A=textToBits,B=bitsToText;
 async function h(s){const e=new TextEncoder();const r=await crypto.subtle.digest('SHA-256',e.encode(s));return new Uint8Array(r)}
